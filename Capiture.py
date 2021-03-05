@@ -9,8 +9,8 @@ def main(args):
     for f in os.listdir(diretorio):
         os.remove(os.path.join(diretorio,f))
     camera = cv2.VideoCapture(0)
-    #camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)'
-    #camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 1024) 
+    #camera.set(cv2.CAP_PROP_FRAME_WIDTH, 64)
+    #camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 64) 
     emLoop = True
     aux1 = 0
     aux = 0
@@ -21,14 +21,15 @@ def main(args):
         cv2.imshow('Camera', img)
         src = './Images/imagenTeste'+texto+'.png'
         cv2.waitKey(1)
-        texto = str(aux1)
-        aux1 = aux1 + 1
-        #aux2 = aux1 -1
-        #texto1 = str(aux2)
+        texto = str(aux1) #transforma o numero em string
+        height, width = img.shape[:2] # pega as dimensões atual da imagem 
+        print(height,width)
         cv2.imwrite(src, img)
-        #imgUMat = cv2.imread('./Images/ImagenTeste.png')
-        #dst = cv2.detailEnhance(imgUMat,sigma_s=20, sigma_r=0.05)
-        #cv2.imwrite(src,dst)
+        print(texto)
+        imgUMat = cv2.imread(src) #le o path atual da imagem
+        resized = cv2.resize(imgUMat, (64, 64), interpolation = cv2.INTER_AREA) # redimensiona a imagem
+        aux1 = aux1 + 1
+        cv2.imwrite(src,resized) ##sobrescreverá a imagem com um novo formato
         fim = time.time()
         tempo = fim - ini
         aux = aux + tempo
