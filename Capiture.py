@@ -1,14 +1,16 @@
 import os
 import time
 from cv2 import cv2
+
 def main(args):
     aux = 0
     texto = ''
-    nFrames = 30
     diretorio = './Images'
     for f in os.listdir(diretorio):
         os.remove(os.path.join(diretorio,f))
     camera = cv2.VideoCapture(0)
+    #camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)'
+    #camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 1024) 
     emLoop = True
     aux1 = 0
     aux = 0
@@ -17,11 +19,16 @@ def main(args):
         retval, img = camera.read()
         ini = time.time()
         cv2.imshow('Camera', img)
-        file = './Images/imagenTeste'+texto+'.png'
+        src = './Images/imagenTeste'+texto+'.png'
         cv2.waitKey(1)
         texto = str(aux1)
         aux1 = aux1 + 1
-        cv2.imwrite(file, img)
+        #aux2 = aux1 -1
+        #texto1 = str(aux2)
+        cv2.imwrite(src, img)
+        #imgUMat = cv2.imread('./Images/ImagenTeste.png')
+        #dst = cv2.detailEnhance(imgUMat,sigma_s=20, sigma_r=0.05)
+        #cv2.imwrite(src,dst)
         fim = time.time()
         tempo = fim - ini
         aux = aux + tempo
