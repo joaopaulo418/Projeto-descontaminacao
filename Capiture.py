@@ -16,7 +16,7 @@ def main(args):
     aux = 0
     while (emLoop):
         tempo = 0
-        retval, img = camera.read()
+        _, img = camera.read()
         ini = time.time()
         cv2.imshow('Camera', img)
         src = './Images/imagenTeste'+texto+'.png'
