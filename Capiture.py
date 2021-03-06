@@ -18,18 +18,14 @@ def main(args):
         tempo = 0
         _, img = camera.read()
         ini = time.time()
-        cv2.imshow('Camera', img)
-        src = './Images/imagenTeste'+texto+'.png'
-        cv2.waitKey(1)
+        src = './Images/'+texto+'.png'
         texto = str(aux1) #transforma o numero em string
-        height, width = img.shape[:2] # pega as dimensões atual da imagem 
-        print(height,width)
         cv2.imwrite(src, img)
-        print(texto)
         imgUMat = cv2.imread(src) #le o path atual da imagem
-        resized = cv2.resize(imgUMat, (64, 64), interpolation = cv2.INTER_AREA) # redimensiona a imagem
+        resized = cv2.resize(imgUMat, (64, 64), interpolation = cv2.INTER_CUBIC) # redimensiona a imagem
+        grayImage = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
         aux1 = aux1 + 1
-        cv2.imwrite(src,resized) ##sobrescreverá a imagem com um novo formato
+        cv2.imwrite(src,grayImage) ##sobrescreverá a imagem com um novo formato
         fim = time.time()
         tempo = fim - ini
         aux = aux + tempo
@@ -40,8 +36,7 @@ def main(args):
 
     
     
-    for f in os.listdir(diretorio):
-        os.remove(os.path.join(diretorio,f))
+   
 
     cv2.destroyAllWindows()
     camera.release()
